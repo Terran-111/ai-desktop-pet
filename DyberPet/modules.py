@@ -20,7 +20,7 @@ from PySide6.QtCore import QObject, QThread, Signal
 from DyberPet.utils import *
 from DyberPet.conf import *
 
-
+from apscheduler.schedulers import SchedulerNotRunningError
 import DyberPet.settings as settings
 basedir = settings.BASEDIR
 
@@ -910,8 +910,16 @@ class Scheduler_worker(QObject):
     def kill(self):
         self.is_paused = False
         self.is_killed = True
-        self.scheduler.shutdown()
-
+        try:
+            # 尝试关闭调度器
+            # 建议加上 wait=False，表示不需要等待当前任务执行完，强制立即关闭
+            self.scheduler.shutdown(wait=False) 
+        except SchedulerNotRunningError:
+            # 如果调度器没在运行，直接忽略这个错误，不做任何处理
+            pass
+        except Exception as e:
+            # 如果有其他错误，打印一下但不要让程序崩掉
+            print(f"关闭调度器时发生其他错误: {e}")
 
     def pause(self):
         self.is_paused = True

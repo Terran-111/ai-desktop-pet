@@ -1,3 +1,7 @@
+import os
+# 强制禁用 Qt 的自动屏幕缩放，解决 UpdateLayeredWindowIndirect 报错
+os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+os.environ["QT_ENABLE_HIGHDPI_SCALING"] = "0"
 import sys
 import webbrowser
 from DyberPet.voice_identify import start_recognition, stop_recognition
@@ -440,6 +444,7 @@ class PetWidget(QWidget):
         
         # 2. 语音线程
         self.voice_thread = VoiceWorker()
+        
         # 当听到用户说话时，调用处理函数
         self.voice_thread.sig_speech_recognized.connect(self.handle_user_speech)
         self.voice_thread.start()
@@ -456,6 +461,9 @@ class PetWidget(QWidget):
         self.client.connected.connect(self._on_websocket_connected)
         self.client.disconnected.connect(self._on_websocket_disconnected)
         self.client.textMessageReceived.connect(self._on_websocket_message_received)
+        
+        # 增加“拨号”
+        self.client.open(QUrl("ws://127.0.0.1:8000/chat"))
         self.chat_window=None
     def _setup_compensate(self):
         self._stop_compensate()
@@ -1078,6 +1086,8 @@ class PetWidget(QWidget):
 
         #self.StatMenu.addMenu(self.menu)
         self.StatMenu.addActions([
+            # 【新增】停止播放按钮
+            Action(FIF.CANCEL, self.tr('安静 (Stop Voice)'), triggered=self.force_stop_voice),
             #Action(FIF.MENU, self.tr('More Options'), triggered=self._show_right_menu),
             Action(QIcon(os.path.join(basedir,'res/icons/dashboard.svg')), self.tr('Dashboard'), triggered=self._show_dashboard),
             Action(QIcon(os.path.join(basedir,'res/icons/SystemPanel.png')), self.tr('System'), triggered=self._show_controlPanel),
@@ -1310,16 +1320,35 @@ class PetWidget(QWidget):
     def _on_websocket_message_received(self, message):
         """收到 WebSocket 消息的回调"""
         print(f"收到消息: {message}")
+        
+        # --- 1. 保留原有的特殊指令逻辑 (比如设置专注时间) ---
         if message.startswith("已设置时间为"):
-            message = message[7:]
-            print(f"收到消息: {message}")
-            # self._show_dashboard()
-            hour,minute=message.split(":")
-            hour=int(hour)
-            minute=int(minute)
-            self.set_focus_time.emit(hour, minute)
-        # 流式显示消息
-        self._stream_message(message)
+            try:
+                # 提取时间部分
+                time_str = message[7:] # 去掉前缀
+                print(f"解析时间: {time_str}")
+                
+                if ":" in time_str:
+                    hour, minute = time_str.split(":")
+                    hour = int(hour)
+                    minute = int(minute)
+                    self.set_focus_time.emit(hour, minute)
+                    
+                    # (可选) 让流萤语音确认一下，而不是只默默设置
+                    self.handle_ai_response(f"好的，已为您设置专注时间：{hour}小时{minute}分")
+                    return # 指令处理完直接返回，不把指令文本显示在气泡里
+            except Exception as e:
+                print(f"时间指令解析错误: {e}")
+
+        # --- 2. 核心修改：普通对话不再流式写入聊天窗口，而是变成气泡+语音 ---
+        
+        # [删除旧代码] 不要再调用这个了，因为我们要废弃聊天窗口
+        # self._stream_message(message) 
+        
+        # [新增代码] 调用我们刚写的处理函数：显示头顶气泡 + 播放语音
+        # 注意：如果后端是流式输出（一个字一个字发），这里可能会导致气泡闪烁太快。
+        # 如果你的后端是一次性发回完整的一句话，直接这样写不仅没问题，效果还最好。
+        self.handle_ai_response(message)
 
     def _handle_set_focus_time(self, hour, minute):
         try:
@@ -1905,20 +1934,43 @@ class PetWidget(QWidget):
         self.setup_acc.emit(accs, x, y)
 
 
-
+    # 【新增】强制停止语音的函数
+    def force_stop_voice(self):
+        """点击菜单'安静'时触发"""
+        print("用户请求：停止播放")
+        if hasattr(self, 'voice_thread'):
+            self.voice_thread.stop_speaking_immediately()
+        
+        # 顺便把头顶的气泡也关了，显得更听话
+        if hasattr(self, 'speech_bubble'):
+            self.speech_bubble.hide()
+            
     def quit(self) -> None:
         """
         关闭窗口, 系统退出
-        :return:
         """
+        # 1. 先保存数据
         settings.pet_data.save_data()
         settings.pet_data.frozen()
-        self.stop_thread('Animation')
-        self.stop_thread('Interaction')
-        self.stop_thread("Scheduler")
+        
+        # 2. 停止其他模块
+        try:
+            self.stop_thread('Animation')
+            self.stop_thread('Interaction')
+            self.stop_thread("Scheduler")
+        except Exception:
+            pass
+            
         self.stopAllThread.emit()
-        if hasattr(self, 'voice_thread'):
-            self.voice_thread.stop()
+        
+        # 3. 【修改】安全停止语音线程
+        try:
+            if hasattr(self, 'voice_thread'):
+                self.voice_thread.stop()
+        except Exception as e:
+            print(f"语音线程退出提示: {e}")
+
+        # 4. 关闭窗口并退出
         self.close()
         sys.exit()
 

@@ -24,12 +24,12 @@ class SpeechBubble(QWidget):
         layout.addWidget(self.label)
         self.setLayout(layout)
         
-        # 阴影效果
-        shadow = QGraphicsDropShadowEffect(self)
-        shadow.setBlurRadius(10)
-        shadow.setColor(QColor(0, 0, 0, 80))
-        shadow.setOffset(0, 4)
-        self.setGraphicsEffect(shadow)
+        # # 阴影效果
+        # shadow = QGraphicsDropShadowEffect(self)
+        # shadow.setBlurRadius(10)
+        # shadow.setColor(QColor(0, 0, 0, 80))
+        # shadow.setOffset(0, 4)
+        # self.setGraphicsEffect(shadow)
         
         # 自动隐藏定时器
         self.hide_timer = QTimer(self)
