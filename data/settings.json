@@ -1,0 +1,37 @@
+{
+    "gravity": 0.1,
+    "set_fall": true,
+    "fixdragspeedx": 1.0,
+    "fixdragspeedy": 1.0,
+    "usertag_dict": {
+        "Kitty": "刘垚铄",
+        "ChrisKitty": "Kitty",
+        "纳西妲": "",
+        "流萤": ""
+    },
+    "scale_dict": {
+        "Kitty": 1.0,
+        "ChrisKitty": 1.0,
+        "纳西妲": 1.0,
+        "流萤": 1.0
+    },
+    "minipet_scale": {
+        "派蒙": {
+            "Kitty": 1.0
+        }
+    },
+    "volume": 0.5,
+    "on_top_hint": true,
+    "toaster_on": true,
+    "bubble_on": true,
+    "default_pet": "流萤",
+    "defaultAct": {
+        "Kitty": null,
+        "ChrisKitty": null,
+        "纳西妲": null,
+        "流萤": null
+    },
+    "language_code": "zh_CN",
+    "themeColor": null,
+    "auto_lock": false
+}

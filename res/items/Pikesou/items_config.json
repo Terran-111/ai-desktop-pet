@@ -1,0 +1,193 @@
+{
+  "骨头": {
+    "name": "骨头",
+    "effect_HP": 10,
+    "effect_FV": 0,
+    "drop_rate": 0.25,
+    "fv_lock": 0,
+    "cost": 1,
+    "type": "consumable",
+    "description": "猫都不吃!",
+    "image": "bone.png"
+  },
+  "香蕉": {
+    "name": "香蕉",
+    "effect_HP": 20,
+    "effect_FV": 4,
+    "drop_rate": 0.5,
+    "fv_lock": 0,
+    "cost": 1,
+    "type": "consumable",
+    "description": "香甜软糯口味佳,老人小孩都爱它!",
+    "image": "banana.png"
+  },
+  "苹果": {
+    "name": "苹果",
+    "effect_HP": 40,
+    "effect_FV": 2,
+    "drop_rate": 0.5,
+    "fv_lock": 0,
+    "cost": 1,
+    "type": "consumable",
+    "description": "一天一苹果,医生远离我.",
+    "image": "apple.png"
+  },
+  "黄瓜": {
+    "name": "黄瓜",
+    "effect_HP": 30,
+    "effect_FV": 0,
+    "drop_rate": 0.5,
+    "fv_lock": 0,
+    "cost": 1,
+    "type": "consumable",
+    "description": "吓猫!",
+    "image": "cucumber.png"
+  },
+  "山竹": {
+    "name": "山竹",
+    "effect_HP": 20,
+    "effect_FV": 1,
+    "drop_rate": 0.5,
+    "fv_lock": 0,
+    "cost": 1,
+    "type": "consumable",
+    "description": "每吃掉一个山竹，就会有一只猫猫失去它的jiojio.",
+    "image": "mangosteen.png"
+  },
+  "玻璃瓶汽水": {
+    "name": "玻璃瓶汽水",
+    "effect_HP": 60,
+    "effect_FV": 6,
+    "drop_rate": 0.5,
+    "fv_lock": 1,
+    "cost": 1,
+    "type": "consumable",
+    "description": "咕咚咕咚哈~嗝~~~",
+    "image": "soda.png"
+  },
+  "绿舌头": {
+    "name": "绿舌头",
+    "effect_HP": 50,
+    "effect_FV": 8,
+    "drop_rate": 0.5,
+    "fv_lock": 1,
+    "cost": 1,
+    "type": "consumable",
+    "description": "Q弹可口,清凉爽滑!",
+    "image": "greenTongue.png"
+  },
+  "小鱼干": {
+    "name": "小鱼干",
+    "effect_HP": 50,
+    "effect_FV": 10,
+    "drop_rate": 0.5,
+    "fv_lock": 1,
+    "cost": 1,
+    "type": "consumable",
+    "description": "香脆豪赤!",
+    "image": "dryFish.png"
+  },
+  "牛奶": {
+    "name": "牛奶",
+    "effect_HP": 50,
+    "effect_FV": 8,
+    "drop_rate": 0.5,
+    "fv_lock": 1,
+    "cost": 120,
+    "type": "consumable",
+    "description": "Tom&Jerry都爱喝.",
+    "image": "milk.png"
+  },
+  "酸奶": {
+    "name": "酸奶",
+    "effect_HP": 50,
+    "effect_FV": 0,
+    "drop_rate": 0.25,
+    "fv_lock": 0,
+    "type": "consumable",
+    "description": "放坏了的牛奶,猫猫不爱吃.",
+    "image": "yoghurt.png"
+  },
+  "番茄炒蛋": {
+    "name": "番茄炒蛋",
+    "effect_HP": 50,
+    "effect_FV": 5,
+    "drop_rate": 0.5,
+    "fv_lock": 1,
+    "cost": 120,
+    "type": "consumable",
+    "description": "营养美味,好吃不贵!",
+    "image": "tomatoEgg.png"
+  },
+  "馄饨": {
+    "name": "馄饨",
+    "effect_HP": 50,
+    "effect_FV": 15,
+    "drop_rate": 0.35,
+    "fv_lock": 2,
+    "cost": 200,
+    "type": "consumable",
+    "description": "我要吃馄饨辣辣滴!",
+    "image": "wonton.png"
+  },
+  "小炒肉": {
+    "name": "小炒肉",
+    "effect_HP": 75,
+    "effect_FV": 5,
+    "drop_rate": 0.5,
+    "fv_lock": 2,
+    "cost": 200,
+    "type": "consumable",
+    "description": "香!香疯了!",
+    "image": "grilledPork.png"
+  },
+  "清蒸鱼": {
+    "name": "清蒸鱼",
+    "effect_HP": 75,
+    "effect_FV": 15,
+    "drop_rate": 0.25,
+    "fv_lock": 3,
+    "cost": 300,
+    "type": "consumable",
+    "description": "最大程度保留了食材的本味!",
+    "image": "steamedFish.png"
+  },
+  "芝士汉堡": {
+    "name": "芝士汉堡",
+    "effect_HP": 20,
+    "effect_FV": 12,
+    "drop_rate": 0.5,
+    "fv_lock": 3,
+    "cost": 350,
+    "type": "consumable",
+    "buff":{
+      "effect": "HP_stop",
+      "expiration": 300,
+      "description":"非常抗饿,食用后5分钟内饱食度不会下降."
+    },
+    "description": "猫猫,你可以吃芝士汉堡.",
+    "image": "cheeseburger.png"
+  },
+  "猫粮": {
+    "name": "猫粮",
+    "effect_HP": 20,
+    "effect_FV": 10,
+    "drop_rate": 0.5,
+    "fv_lock": 3,
+    "cost": 233,
+    "type": "consumable",
+    "description": "[广告位招租](认真脸",
+    "image": "cf.png"
+  },
+  "冻干": {
+    "name": "冻干",
+    "effect_HP": 10,
+    "effect_FV": 20,
+    "drop_rate": 0.25,
+    "fv_lock": 3,
+    "cost": 350,
+    "type": "consumable",
+    "description": "含45%牛肉和46%的金枪鱼肉,并添加各种营养素的高级全价冻干.",
+    "image": "fd.png"
+  }
+}

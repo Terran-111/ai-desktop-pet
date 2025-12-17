@@ -1,0 +1,15 @@
+{
+    "pfp":"cheeseburger.png",
+    "modName": "猫meme食物包",
+    "intro": "由b站up代号皮克嗖儿精心研制,至于猫猫爱不爱吃就不知道了(呱",
+    "author":{
+        "name":"代号皮克嗖儿",
+        "pfp":"pikesou.png",
+        "frameColor":"#FFFFFF",
+        "links":{
+            "BiliBili":"9959876"
+        },
+        "infos":"像素画业余爱好者,不定期分享像素表情包和整活!"
+    }
+
+}
