@@ -62,9 +62,9 @@
         "last_opened": "2025-12-16"
     },
     "流萤": {
-        "HP": 1,
-        "HP_tier": 1,
-        "FV": 102,
+        "HP": 0,
+        "HP_tier": 0,
+        "FV": 97,
         "FV_lvl": 5,
         "fv_sys_ver": "v2",
         "items": {
@@ -78,7 +78,7 @@
             ]
         },
         "coins": 580,
-        "days": 9,
-        "last_opened": "2025-12-17"
+        "days": 10,
+        "last_opened": "2025-12-19"
     }
 }
